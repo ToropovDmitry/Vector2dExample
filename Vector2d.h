@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
 #include <iostream>
+#include <string>
 
 class Vector2d
 {
@@ -20,11 +21,19 @@ public:
 	void sety(double);
 	double gety();
 
-	void print(void);
-	Vector2d* sum(Vector2d);
-	Vector2d* sub(Vector2d);
-	Vector2d* mult(double);
-	double scalarMult(Vector2d);
+	operator std::string();
+	Vector2d Vector2d::operator+(const Vector2d& vector) const;
+	Vector2d Vector2d::operator-(const Vector2d& vector) const;
+	Vector2d Vector2d::operator*(double a) const;
+	friend Vector2d operator*(double, Vector2d& vector);
+	double Vector2d::operator*(const Vector2d& vector) const;
+	Vector2d& operator++();
+	Vector2d operator++(int);
+	Vector2d& operator--();
+	Vector2d operator--(int);
+	const Vector2d& operator+=(const Vector2d &);
+	const Vector2d& operator-=(const Vector2d &);
+	const Vector2d& operator*=(double a);	
 	double length();
 	double Vector2d::Cos(Vector2d);
 	double tangent(Vector2d);

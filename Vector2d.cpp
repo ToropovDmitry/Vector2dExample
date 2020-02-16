@@ -50,29 +50,87 @@ double Vector2d::gety()
 	return this->y;
 }
 
-void Vector2d::print()
+Vector2d Vector2d::operator+(const Vector2d& vector) const
 {
-	std::cout << this->x << " " << this->y << std::endl;
+	return Vector2d(this->x + vector.x, this->y + vector.y);
 }
 
-Vector2d* Vector2d::sum(Vector2d vector)
+Vector2d Vector2d::operator-(const Vector2d& vector) const
 {
-	return new Vector2d(this->x + vector.x, this->y + vector.y);
+	return Vector2d(this->x - vector.x, this->y - vector.y);
 }
 
-Vector2d* Vector2d::sub(Vector2d vector)
+Vector2d Vector2d::operator*(double a) const
 {
-	return new Vector2d(this->x - vector.x, this->y - vector.y);
+	return Vector2d(this->x * a, this->y * a);
 }
 
-Vector2d* Vector2d::mult(double a)
+Vector2d operator*(double a, Vector2d& vector)
 {
-	return new Vector2d(this->x * a, this->y * a);
+	return vector * a;
 }
 
-double Vector2d::scalarMult(Vector2d vector)
+double Vector2d::operator*(const Vector2d& vector) const
+
 {
 	return this->x * vector.x + this->y * vector.y;
+}
+
+Vector2d& Vector2d::operator++()
+{
+	x++;
+	y++;
+	return *this;
+}
+
+Vector2d Vector2d::operator++(int)
+{
+	Vector2d temp(x, y);
+	x++;
+	y++;
+	return temp;
+}
+
+Vector2d& Vector2d::operator--()
+{
+	x--;
+	y--;
+	return *this;
+}
+
+Vector2d Vector2d::operator--(int)
+{
+	Vector2d temp(x, y);
+	x--;
+	y--;
+	return temp;
+}
+
+const Vector2d& Vector2d::operator+=(const Vector2d &vector)
+{
+	x += vector.x;
+	y += vector.y;
+	return *this;
+}
+
+const Vector2d& Vector2d::operator-=(const Vector2d &vector)
+{
+	x -= vector.x;
+	y -= vector.y;
+	return *this;
+}
+
+const Vector2d& Vector2d::operator*=(double a)
+{
+	x *= a;
+	y *= a;
+	return *this;
+}
+
+Vector2d::operator std::string()
+{
+	std::string s = "(" + std::to_string(x) + ";" + std::to_string(y) + ")";
+	return s;
 }
 
 double Vector2d::length()
@@ -82,7 +140,7 @@ double Vector2d::length()
 
 double Vector2d::Cos(Vector2d other)
 {
-	return this->scalarMult(other) / (this->length() * other.length());
+	return this->operator*(other) / (this->length() * other.length());
 }
 
 double Vector2d::tangent(Vector2d vector)
