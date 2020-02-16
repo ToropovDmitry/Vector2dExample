@@ -55,8 +55,37 @@ void Vector2d::print()
 	std::cout << this->x << " " << this->y << std::endl;
 }
 
-void Vector2d::sum(Vector2d vector)
+Vector2d* Vector2d::sum(Vector2d vector)
 {
-	x = x + vector.x;
-	y = y + vector.y;
+	return new Vector2d(this->x + vector.x, this->y + vector.y);
+}
+
+Vector2d* Vector2d::sub(Vector2d vector)
+{
+	return new Vector2d(this->x - vector.x, this->y - vector.y);
+}
+
+Vector2d* Vector2d::mult(double a)
+{
+	return new Vector2d(this->x * a, this->y * a);
+}
+
+double Vector2d::scalarMult(Vector2d vector)
+{
+	return this->x * vector.x + this->y * vector.y;
+}
+
+double Vector2d::length()
+{
+	return sqrt(this->x * this->x + this->y * this->y);
+}
+
+double Vector2d::Cos(Vector2d other)
+{
+	return this->scalarMult(other) / (this->length() * other.length());
+}
+
+double Vector2d::tangent(Vector2d vector)
+{
+	return tan(acos(this->Cos(vector)));
 }
